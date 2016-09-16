@@ -7,4 +7,13 @@ contents = contents.split(" ")
 computer_word = (random.choice(contents))
 open_file.close()
 
-# Second way to open a file
+if shuffle == 0:
+    print("Woah man, you got one.  At this rate your sure to win *snicker*")
+elif suffle == 1:
+    print("Huh, you got another one.  No, that's cool, gimme a sec")
+elif suffle == 2:
+    print("Hnnnnnggg nope that's, fine, totally fine.")
+elif suffle == 3:
+    print("Uh, uh, uh, uh ,uh")
+else:
+    print ("FFFFFFFFFFFFFFFFF")

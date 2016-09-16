@@ -1,5 +1,13 @@
 import random
 
+def menu():
+    play_again = input("Play again? y/n?: ")
+    if play_again == "y":
+        mystery_word_game()
+    else:
+         exit()
+
+
 def mystery_word_game():
     open_file = open("/usr/share/dict/words")
     contents = open_file.read()
@@ -43,38 +51,53 @@ def mystery_word_game():
     computer_word = list(computer_word)
     playerguesses = []
     turn = 1
+    shuffle = 0
     while turn <= 8:
         answer = []
         print ("turn {}".format(turn))
+        print (computer_word)
         playerguess = (input("Please guess a letter: "))
         playerguess = playerguess.lower()
+        print (computer_word)
         if len(playerguess) > 1:
             print ("Only one character please!")
-        elif playerguess in playerguesses:
-            print ("You've already guessed that, try again")
+        # elif playerguess in playerguesses:
+        #    print ("You've already guessed that, try again")
         elif playerguess in computer_word:
-            print ("you got one!")
+            contents = [word for word in contents if len(word) == len(computer_word)]
             playerguesses.append(playerguess)
             for current_location, current_letter in enumerate(computer_word):
                 if current_letter == playerguess:
                     answer.append(current_location)
             for item in answer:
                 blankspace[int(item)] = computer_word[int(item)]
+                contents = [word for word in contents if word[int(item)] == computer_word[int(item)]]
             print (*blankspace)
+            print (contents)
+            if shuffle == 0:
+                print("Woah man, you got one.  At this rate your sure to win *snicker*")
+            elif shuffle == 1:
+                print("Huh, you got another one.  No, that's cool, gimme a sec")
+            elif shuffle == 2:
+                print("Hnnnnnggg nope that's, fine, totally fine.")
+            elif shuffle == 3:
+                print("Uh, uh, uh, uh ,uh")
+            else:
+                print ("FFFFFFFFFFFFFFFFF")
+            computer_word = (random.choice(contents))
+            shuffle +=1
             if "_" not in blankspace:
-                print ("You Win!!!")
+                print ("Thhhhhhat's impossible!!!!")
                 break
         else:
             playerguesses.append(playerguess)
-            print ("Nope that's not in my word")
+            print ("Ha, not even close, give it up.")
             print (*blankspace)
             turn += 1
     computer_word = ''.join(computer_word)
-    print ("Game over, my word was...")
+    print ("my word was...")
     print (computer_word)
-    play_again = input("Play again? y/n?: ")
-    if play_again == "y" or "Y":
-        mystery_word_game()
-    else:
-        exit()
+    menu()
+
+
 mystery_word_game()
